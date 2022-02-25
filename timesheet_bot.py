@@ -56,7 +56,6 @@ def get_next_sign_date(target_date):
         else:
             days_offset -= 1
 
-
     return target_date
 
 
