@@ -111,4 +111,4 @@ if __name__ == "__main__":
 
     while True:
         #Check every 30 seconds if we've hit our cron time.
-        time.sleep(30)
+        time.sleep(45)
