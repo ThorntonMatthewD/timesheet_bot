@@ -73,7 +73,7 @@ def send_discord_webhook():
     embed = DiscordEmbed(title="It's TIME to Submit Your Timesheet!", color="01807e",
                              description=f"Don't forget to sign your timesheet in Deltek today!")
     embed.set_timestamp()
-    embed.add_embed_field(name="Log in now!:", value="https://time.bah.com", inline=False)
+    embed.add_embed_field(name="Log in now!", value="https://time.bah.com", inline=False)
     embed.set_thumbnail(url="https://i.kym-cdn.com/photos/images/original/001/879/961/056.gif")
     webhook = DiscordWebhook(url=DISCORD_WEBHOOK_URL, rate_limit_retry=True)
     webhook.add_embed(embed=embed)
