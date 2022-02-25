@@ -1,17 +1,22 @@
 import os
+import time
 import calendar
 import datetime
 
 from dotenv import find_dotenv, load_dotenv
 from discord_webhook import DiscordWebhook
 from discord_webhook.webhook import DiscordEmbed
+from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.executors.pool import ProcessPoolExecutor
+from pytz import timezone
+
 
 load_dotenv(find_dotenv(), verbose=True)
 
 DISCORD_WEBHOOK_URL = os.environ.get('webhook')
 ROLE_TO_PING = os.environ.get('ping_id')
 
-#BAH Holidays for 2022
+#Holidays for 2022
 HOLIDAYS = [
     "05/30/2022",
     "06/20/2022",
@@ -21,6 +26,14 @@ HOLIDAYS = [
     "11/24/2022",
     "12/26/2022"
 ]
+
+
+executors = {
+    'default': ProcessPoolExecutor()
+}
+
+scheduler = BackgroundScheduler(daemon=False, executors=executors)
+
 
 #Gets the last working day before the 15th and end of a month.
 #Has to account for weekends and holidays..
@@ -56,7 +69,6 @@ def get_next_sign_date(target_date):
         else:
             days_offset -= 1
 
-
     return target_date
 
 
@@ -84,9 +96,19 @@ def send_discord_webhook():
     webhook.execute()
 
 
-if __name__ == "__main__":
+def perform_timesheet_check():
     if check_if_sign_date():
         print("It is time to submit your timesheet.")
         send_discord_webhook()
     else:
         print("It isn't time for submitting your timesheet.")
+
+
+if __name__ == "__main__":
+    scheduler.start()
+
+    scheduler.add_job(perform_timesheet_check, 'cron', hour=9, minute=30, misfire_grace_time=60)
+
+    while True:
+        #Check every 30 seconds if we've hit our cron time.
+        time.sleep(30)
