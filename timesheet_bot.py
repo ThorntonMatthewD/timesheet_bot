@@ -26,9 +26,9 @@ HOLIDAYS = [
 #Has to account for weekends and holidays..
 def check_if_sign_date():
     now = datetime.datetime.now()
-    days_in_month = calendar.monthrange(now.year, now.month)[1]
-
+    
     if now.day > 15:
+        days_in_month = calendar.monthrange(now.year, now.month)[1]
         target_date = datetime.datetime(now.year, now.month, days_in_month)
     else:
         target_date = datetime.datetime(now.year, now.month, 15)
