@@ -13,3 +13,5 @@ Sends a reminder via Discord webhook to remind you to submit your timesheet. Ass
 `python timesheet_bot.py`
 
 The idea is to set up a venv and run timesheet_bot.py with a cronjob each weekday. If you'd rather just leave a program running somewhere, check out [The apscheduler version](https://github.com/ThorntonMatthewD/timesheet_bot/tree/use-apscheduler). You might have to set `daemon=true` depending how you want to use it.
+
+![Example crontab setup with a venv running at 09:30 Monday thru Friday](https://user-images.githubusercontent.com/44626690/155641707-079e8744-fb2a-45e0-8d7a-8fb2ee674917.png)
