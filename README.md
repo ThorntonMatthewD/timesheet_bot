@@ -6,7 +6,7 @@ Sends a reminder via Discord webhook to remind you to submit your timesheet. Ass
 
 `python -m venv env`
 
-`source env/bin/active`
+`source env/bin/activate`
 
 `pip install -r requirements.txt`
 
