@@ -35,7 +35,7 @@ def check_if_sign_date():
 
     next_sign_date = get_next_sign_date(target_date)
 
-    return True if next_sign_date == now else False
+    return True if next_sign_date.date() == now.date() else False
 
 
 def get_next_sign_date(target_date):
