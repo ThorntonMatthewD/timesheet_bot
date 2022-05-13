@@ -44,19 +44,18 @@ def get_next_sign_date(target_date):
     days_offset = 0
 
     while not_found:
-        target_date = target_date + datetime.timedelta(days=days_offset)
+        date_to_examine = target_date + datetime.timedelta(days=days_offset)
 
         # check if weekday
-        if target_date.isoweekday() < 6:
-            # check if holiday
-            if check_if_holiday(target_date):
+        if date_to_examine.isoweekday() < 6:
+            if check_if_holiday(date_to_examine):
                 days_offset -= 1
             else:
                 not_found = False
         else:
             days_offset -= 1
 
-    return target_date
+    return target_date + datetime.timedelta(days=days_offset)
 
 
 def check_if_holiday(date):
@@ -95,6 +94,6 @@ def send_discord_webhook():
 if __name__ == "__main__":
     if check_if_sign_date():
         print("It is time to submit your timesheet.")
-        # send_discord_webhook()
+        send_discord_webhook()
     else:
         print("It isn't time for submitting your timesheet.")
